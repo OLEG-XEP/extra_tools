@@ -1,3 +1,6 @@
 [submodule "drivers/rtl8192eu-linux-driver"]
 	path = drivers/rtl8192eu-linux-driver
 	url = https://github.com/Mange/rtl8192eu-linux-driver
+[submodule "drivers/rtl8188eus"]
+	path = drivers/rtl8188eus
+	url = https://github.com/aircrack-ng/rtl8188eus
