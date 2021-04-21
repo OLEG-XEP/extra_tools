@@ -1,0 +1,9 @@
+config BT_HCISMD_4
+ tristate "HCI SMD driver for kernel 4.*"
+ help
+   Bluetooth HCI SMD driver.
+          This driver is required if you want to use Bluetoth device with
+   SMD interface.
+
+   Say Y here to compile support for Bluetooth USB devices into the
+          kernel or say M to compile is as a module (hci_smd).
