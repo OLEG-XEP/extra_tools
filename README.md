@@ -1,7 +1,9 @@
 # extra_tools
 Добавляет дополнительные драйвера, фирмвейр-файлы, а так же там есть патч для включения инъекции пакетов на ядре 4.*.
-Чтобы пункты появились в make menuconfig, нужно выполнить эту команду: sed -i '2i source "extra_tools/drivers/Kconfig"' drivers/Kconfig
-А также эту: sed -i '1i obj-y				+= ../extra_tools/drivers/' drivers/Makefile
+Чтобы пункты появились в make menuconfig, нужно выполнить эту команду:
+`sed -i '2i source "extra_tools/drivers/Kconfig"' drivers/Kconfig`.
+
+А также эту: `sed -i '1i obj-y				+= ../extra_tools/drivers/' drivers/Makefile`.
 После этого в menuconfig -> Device Drivers в самом верху появится дополнительный пункт, включив его у вас могут быть собраны дополнительные драйвера.
 
 Замечание:
