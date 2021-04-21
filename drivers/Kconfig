@@ -1,0 +1,17 @@
+config EXTRA_DRIVERS
+        bool "Extra device drivers"
+        default n
+        ---help---
+          Help message for EXTRA_DRIVERS
+
+if EXTRA_DRIVERS
+source "extra_tools/drivers/rtl8812au/Kconfig"
+source "extra_tools/drivers/rtl8814au/Kconfig"
+source "extra_tools/drivers/rtl8188eus/Kconfig"
+source "extra_tools/drivers/rtl8723bu/Kconfig"
+#source "extra_tools/drivers/rtl8192du/Kconfig"
+#source "extra_tools/drivers/rtl8723au/Kconfig"
+source "extra_tools/drivers/rtl8192eu-linux-driver/Kconfig"
+source "extra_tools/drivers/hci_smd/Kconfig"
+#source "extra_tools/drivers/mt7612u/Kconfig"
+endif
