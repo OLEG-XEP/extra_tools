@@ -72,9 +72,9 @@ CONFIG_RTW_ADAPTIVITY_EN = disable
 CONFIG_RTW_ADAPTIVITY_MODE = normal
 CONFIG_SIGNAL_SCALE_MAPPING = n
 CONFIG_80211W = y
-CONFIG_REDUCE_TX_CPU_LOADING = n
+CONFIG_REDUCE_TX_CPU_LOADING = y
 CONFIG_BR_EXT = y
-CONFIG_TDLS = n
+CONFIG_TDLS = y
 CONFIG_WIFI_MONITOR = y
 CONFIG_MCC_MODE = n
 CONFIG_APPEND_VENDOR_IE_ENABLE = n
@@ -85,7 +85,7 @@ CONFIG_RTW_IPCAM_APPLICATION = n
 CONFIG_RTW_REPEATER_SON = n
 CONFIG_RTW_WIFI_HAL = n
 CONFIG_ICMP_VOQ = n
-CONFIG_IP_R_MONITOR = n #arp VOQ and high rate
+CONFIG_IP_R_MONITOR = y #arp VOQ and high rate
 # user priority mapping rule : tos, dscp
 CONFIG_RTW_UP_MAPPING_RULE = tos
 
@@ -93,7 +93,7 @@ CONFIG_RTW_UP_MAPPING_RULE = tos
 CONFIG_RTW_DEBUG = n
 # default log level is _DRV_INFO_ = 4,
 # please refer to "How_to_set_driver_debug_log_level.doc" to set the available level.
-CONFIG_RTW_LOG_LEVEL = 2
+CONFIG_RTW_LOG_LEVEL = 0
 
 # enable /proc/net/rtlxxxx/ debug interfaces
 CONFIG_PROC_DEBUG = y

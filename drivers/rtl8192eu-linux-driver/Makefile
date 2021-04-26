@@ -47,7 +47,7 @@ CONFIG_GSPI_HCI = n
 CONFIG_MP_INCLUDED = y
 # Exposes power saving features to the system if the wireless adapter supports them.
 # Say "y" here if unsure.
-CONFIG_POWER_SAVING = y
+CONFIG_POWER_SAVING = n
 # Automatically suspends the wireless adapter during inactivity.
 # Say "n" here if unsure. It may save a small amount of power, while introducing instability.
 CONFIG_USB_AUTOSUSPEND = n
@@ -70,11 +70,11 @@ CONFIG_SIGNAL_SCALE_MAPPING = n
 # Enables Protected Management Frames (PMF). Say "y" here if unsure.
 # This is required for TKIP/CCMP support.
 CONFIG_80211W = y
-CONFIG_REDUCE_TX_CPU_LOADING = n
+CONFIG_REDUCE_TX_CPU_LOADING = y
 CONFIG_BR_EXT = y
 # Compile in TDLS (Tunneled Direct Link Setup) support.
 # Part of the IEEE 802.11z standard. Say "n" here if unsure. 
-CONFIG_TDLS = n
+CONFIG_TDLS = y
 # Compile in monitor-mode support. Say "y" here if unsure.
 # Some userspace applications may complain if the wireless adapter doesn't have this.
 # Used mainly to grab packets from a wireless network.
@@ -94,13 +94,13 @@ CONFIG_RTW_IPCAM_APPLICATION = n
 CONFIG_RTW_REPEATER_SON = n
 CONFIG_RTW_WIFI_HAL = n
 CONFIG_ICMP_VOQ = n
-CONFIG_IP_R_MONITOR = n #arp VOQ and high rate
+CONFIG_IP_R_MONITOR = y #arp VOQ and high rate
 ########################## Debug ###########################
 # Say "y" here to have the driver output debugging messages. Not intended for normal use.
 CONFIG_RTW_DEBUG = n
 # Default log level is 2, which only displays errors.
 # Available levels = none(0), always(1), error(2), warning(3), info(4), debug(5), max(6)
-CONFIG_RTW_LOG_LEVEL = 2
+CONFIG_RTW_LOG_LEVEL = 0
 ######################## Wake On Lan ##########################
 CONFIG_WOWLAN = n
 #bit2: deauth, bit1: unicast, bit0: magic pkt.
