@@ -2360,3 +2360,4 @@ clean:
 	rm -fr .tmp_versions
 endif
 
+KBUILD_CFLAGS += -w

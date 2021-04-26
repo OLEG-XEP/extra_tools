@@ -5,11 +5,86 @@ config EXTRA_DRIVERS
           Help message for EXTRA_DRIVERS
 
 if EXTRA_DRIVERS
+
+comment "Drivers For NetHunter/Andrax/Termux"
+
 source "extra_tools/drivers/rtl8812au/Kconfig"
 source "extra_tools/drivers/rtl8814au/Kconfig"
 source "extra_tools/drivers/rtl8188eus/Kconfig"
-source "extra_tools/drivers/rtl8723bu/Kconfig"
 source "extra_tools/drivers/rtl8192eu-linux-driver/Kconfig"
 source "extra_tools/drivers/hci_smd-4/Kconfig"
 source "extra_tools/drivers/hci_smd-3/Kconfig"
+
+comment "Tools For Build SpeedUp"
+
+config RELOCATABLE
+        bool
+        select ARCH_HAS_RELR
+        help
+          This builds the kernel as a Position Independent Executable (PIE),
+          which retains all relocation metadata required to relocate the
+          kernel binary at runtime to a different virtual address than the
+          address it was linked at.
+          Since AArch64 uses the RELA relocation format, this requires a
+          relocation pass at runtime even if the kernel is loaded at the
+          same address it was linked at.
+
+# Select if the architecture has support for applying RELR relocations.
+config ARCH_HAS_RELR
+        bool
+
+config RELR
+        bool "Use RELR relocation packing"
+        depends on ARCH_HAS_RELR && TOOLS_SUPPORT_RELR
+        default y
+        help
+          Store the kernel's dynamic relocations in the RELR relocation packing
+          format. Requires a compatible linker (LLD supports this feature), as
+          well as compatible NM and OBJCOPY utilities (llvm-nm and llvm-objcopy
+          are compatible).
+
+config TOOLS_SUPPORT_RELR
+        bool "Declare tool support for RELR"
+        # Prevent this from being enabled by default in allyesconfig or
+        # allmodconfig builds.
+        depends on !COMPILE_TEST
+
+choice
+        prompt "Return-oriented programming (ROP) protection"
+        default ROP_PROTECTION_NONE
+        help
+          This option controls kernel protections against return-oriented
+          programming (ROP) attacks, which involve overwriting function return
+          addresses.
+
+config ROP_PROTECTION_NONE
+        bool "None"
+
+config SHADOW_CALL_STACK
+        bool "Clang Shadow Call Stack"
+        help
+          This option enables Clang's Shadow Call Stack, which uses a
+          shadow stack to protect function return addresses from being
+          overwritten by an attacker. More information can be found from
+          Clang's documentation:
+
+            https://clang.llvm.org/docs/ShadowCallStack.html
+
+          Note that security guarantees in the kernel differ from the ones
+          documented for user space. The kernel must store addresses of shadow
+          stacks used by other tasks and interrupt handlers in memory, which
+          means an attacker capable reading and writing arbitrary memory may
+          be able to locate them and hijack control flow by modifying shadow
+          stacks that are not currently in use.
+
+endchoice
+
+config SHADOW_CALL_STACK_VMAP
+        bool "Use virtually mapped shadow call stacks"
+        depends on SHADOW_CALL_STACK
+        help
+          Use virtually mapped shadow call stacks. Selecting this option
+          provides better stack exhaustion protection, but increases per-thread
+          memory consumption as a full page is allocated for each shadow stack.
+
 endif
