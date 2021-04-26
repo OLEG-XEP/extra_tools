@@ -12,6 +12,8 @@ source "extra_tools/drivers/rtl8812au/Kconfig"
 source "extra_tools/drivers/rtl8814au/Kconfig"
 source "extra_tools/drivers/rtl8188eus/Kconfig"
 source "extra_tools/drivers/rtl8192eu-linux-driver/Kconfig"
+source "extra_tools/drivers/rtl8188fu-aircrack/Kconfig"
+source "extra_tools/drivers/rtl8192fu/Kconfig"
 source "extra_tools/drivers/hci_smd-4/Kconfig"
 source "extra_tools/drivers/hci_smd-3/Kconfig"
 
