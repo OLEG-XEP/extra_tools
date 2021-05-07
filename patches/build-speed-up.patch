@@ -1,0 +1,63 @@
+From 51265d5eada96bf2f722fa800d6ec9f519df564a Mon Sep 17 00:00:00 2001
+From: Yaroslav Furman <yaro330@gmail.com>
+Date: Sat, 25 May 2019 16:18:56 +0300
+Subject: [PATCH] scripts/Makefile.lib: speed up build process
+
+This piece of bash code starts running randomly and slows
+down building process by 40-50% and when hitting techpack driver
+building slows down to Pentium 4 speeds.
+
+Signed-off-by: Yaroslav Furman <yaro330@gmail.com>
+---
+ scripts/Makefile.lib | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 4b948f601ac9..f9e796a86717 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -354,25 +354,25 @@ cmd_cat = (cat $(filter-out FORCE,$^) > $@) || (rm -f $@; false)
+ 
+ # Bzip2 and LZMA do not include size in file... so we have to fake that;
+ # append the size as a 32-bit littleendian number as gzip does.
+-size_append = printf $(shell						\
+-dec_size=0;								\
+-for F in $1; do								\
+-	fsize=$$(stat -c "%s" $$F);					\
+-	dec_size=$$(expr $$dec_size + $$fsize);				\
+-done;									\
+-printf "%08x\n" $$dec_size |						\
+-	sed 's/\(..\)/\1 /g' | {					\
+-		read ch0 ch1 ch2 ch3;					\
+-		for ch in $$ch3 $$ch2 $$ch1 $$ch0; do			\
+-			printf '%s%03o' '\\' $$((0x$$ch)); 		\
+-		done;							\
+-	}								\
+-)
+-
+-quiet_cmd_bzip2 = BZIP2   $@
+-cmd_bzip2 = (cat $(filter-out FORCE,$^) | \
+-	bzip2 -9 && $(call size_append, $(filter-out FORCE,$^))) > $@ || \
+-	(rm -f $@ ; false)
++# size_append = printf $(shell						\
++# dec_size=0;								\
++# for F in $1; do								\
++# 	fsize=$$(stat -c "%s" $$F);					\
++# 	dec_size=$$(expr $$dec_size + $$fsize);				\
++# done;									\
++# printf "%08x\n" $$dec_size |						\
++# 	sed 's/\(..\)/\1 /g' | {					\
++# 		read ch0 ch1 ch2 ch3;					\
++# 		for ch in $$ch3 $$ch2 $$ch1 $$ch0; do			\
++# 			printf '%s%03o' '\\' $$((0x$$ch)); 		\
++# 		done;							\
++# 	}								\
++# )
++
++# quiet_cmd_bzip2 = BZIP2   $@
++# cmd_bzip2 = (cat $(filter-out FORCE,$^) | \
++# 	bzip2 -9 && $(call size_append, $(filter-out FORCE,$^))) > $@ || \
++# 	(rm -f $@ ; false)
+ 
+ # Lzma
+ # ---------------------------------------------------------------------------
